@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MultiBinding.MainPage"
+             xmlns:local="clr-namespace:MultiBinding.Converters"
+             xmlns:resource="clr-namespace:MultiBinding">
+   <ContentPage.Resources>
+       <ResourceDictionary>
+            <local:TextToUpperConverter x:Key="TextToUpperConverter"/>
+            <local:TextToLowerConverter x:Key="TextToLowerConverter"/>
+            <local:MultiBindingToCousinConverter x:Key="MultiBindingToCousinConverter"/>
+       </ResourceDictionary>
+   </ContentPage.Resources>
+    <StackLayout VerticalOptions="CenterAndExpand">
+
+         <Label>
+            <Label.Text>
+                <MultiBinding StringFormat="{}{0} {1} {2}">
+                    <Binding Source="{x:Static resource:AppResources.Welcome}"/>
+                    <Binding Path="FirstName"/>
+                    <Binding Path="LastName" />
+                </MultiBinding>
+            </Label.Text>
+        </Label>
+
+        <Label>
+            <Label.Text>
+                <MultiBinding StringFormat="{}{0} {1}">
+                    <Binding Path="FirstName" />
+                    <Binding Path="LastName" />
+                </MultiBinding>
+            </Label.Text>
+        </Label>
+
+        <Button>
+            <Button.Text>
+                <MultiBinding Converter="{StaticResource MultiBindingToCousinConverter}" ConverterParameter="Agramonte">
+                    <Binding Path="FirstName"  />
+                    <Binding Path="LastName" />
+                </MultiBinding>
+            </Button.Text>
+        </Button>
+
+         <Button>
+            <Button.Text>
+                <MultiBinding Converter="{StaticResource MultiBindingToCousinConverter}" ConverterParameter="Random">
+                    <Binding Path="FirstName"  />
+                    <Binding Path="LastName" />
+                </MultiBinding>
+            </Button.Text>
+        </Button>
+
+         <Button>
+            <Button.Text>
+                <MultiBinding StringFormat="{}{0} {1}">
+                    <Binding Path="FirstName" Converter="{StaticResource TextToUpperConverter}" />
+                    <Binding Path="LastName" Converter="{StaticResource TextToLowerConverter}" />
+                </MultiBinding>
+            </Button.Text>
+        </Button>
+    </StackLayout>
+</ContentPage>
